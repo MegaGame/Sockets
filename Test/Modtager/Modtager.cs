@@ -19,8 +19,37 @@ namespace Modtager
         }
         public void Run()
         {
-            JsonTest3();
+            ClientHandlerSerialTest2();
         }
+        public void ClientHandlerSerialTest()
+        {
+            ServerSocketListen ssl = new ServerSocketListen();
+            Socket s = ssl.StartHost();
+            ClientHandler ch = new ClientHandler(s, false, true);
+            new Thread(ch.AcceptClientsSerialBytes).Start();
+            try
+            {
+                ch.Recived += PrintObject;
+            }
+            catch (Exception)
+            {
+            }
+        }
+        public void ClientHandlerSerialTest2()
+        {
+            ServerSocketListen ssl = new ServerSocketListen();
+            Socket s = ssl.StartHost();
+            ClientHandler ch = new ClientHandler(s, true, true);
+            new Thread(ch.AcceptClientsSerialBytes).Start();
+            try
+            {
+                ch.Recived += PrintObject;
+            }
+            catch (Exception)
+            {
+            }
+        }
+
         public void JsonTest3()
         {
             List<JsonBytes> listJB = new List<JsonBytes>();
@@ -94,7 +123,7 @@ namespace Modtager
             DataClassTrans dct = (DataClassTrans)s;
             Console.WriteLine(dct.data);
         }
-        public void PrintString(string s)
+        public void PrintString(Object s)
         {
             Console.WriteLine(s);
         }

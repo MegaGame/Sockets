@@ -7,8 +7,8 @@
     <ProjectGuid>{A93EECAB-6D06-4D18-A91B-AF2D53E7DEF7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SendelseAfData</RootNamespace>
-    <AssemblyName>SendelseAfData</AssemblyName>
+    <RootNamespace>SendeOgModtagesAfData</RootNamespace>
+    <AssemblyName>SendeOgModtagesAfData</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,6 +43,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Bytes.cs" />
+    <Compile Include="ClientHandler.cs" />
     <Compile Include="DataClassTrans.cs" />
     <Compile Include="JsonBytes.cs" />
     <Compile Include="SendReciveBytes.cs" />

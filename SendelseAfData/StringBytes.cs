@@ -5,35 +5,25 @@ using System.Threading;
 
 namespace SendeOgModtagesAfData
 {
-    public class StringBytes
+    public class StringBytes : Bytes
     {
-        SendReciveBytes sr;
-        public event Action<string> Recived;
+        public override event Action<Object> Recived;
 
         public StringBytes(Socket handler)
         {
             sr = new SendReciveBytes(handler);
             new Thread(Listen).Start();
         }
-        public void Send(String data)
+        public override void Send(Object data)
         {
-            byte[] msg = Encoding.ASCII.GetBytes(data);
+            string s = (string)data;
+            byte[] msg = Encoding.ASCII.GetBytes(s);
             sr.Send(msg);
         }
-        public void Listen()
+        public override void BytesToObject(byte[] bytes)
         {
-            try
-            {
-                sr.Recived += BytesToString;
-            }
-            catch (Exception)
-            {
-            }
-        }
-        public void BytesToString(byte[] bytes)
-        {
-            String data = Encoding.ASCII.GetString(bytes);
-            Recived(data);
+            Object data = Encoding.ASCII.GetString(bytes);            
+            Recived(data); //HUSK string s = (string)data HVOR data modtages
         }
     }
 }

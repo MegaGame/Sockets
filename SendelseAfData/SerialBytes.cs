@@ -6,32 +6,22 @@ using System.Threading;
 
 namespace SendeOgModtagesAfData
 {
-    public class SerialBytes
+    public class SerialBytes : Bytes
     {
-        SendReciveBytes sr;
-        public event Action<Object> Recived;
+        
+        public override event Action<Object> Recived;
 
         public SerialBytes(Socket handler)
         {
             sr = new SendReciveBytes(handler);
             new Thread(Listen).Start();
         }
-        public void Send(Object data)
+        public override void Send(Object data)
         {
             byte[] msg = ObjectToByteArray(data);
             sr.Send(msg);
         }
-        public void Listen()
-        {
-            try
-            {
-                sr.Recived += BytesToObejct;
-            }
-            catch (Exception)
-            {
-            }
-        }
-        public void BytesToObejct(byte[] bytes)
+        public override void BytesToObject(byte[] bytes)
         {
             Object dct = ByteArrayToObject(bytes);
             Recived(dct);

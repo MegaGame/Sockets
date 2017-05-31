@@ -19,7 +19,7 @@ namespace Sender
         }
         public void Run()
         {
-            JsonTest3();
+            ClientHandlerSerialTest2();
         }
         public void JsonTest3()
         {
@@ -54,18 +54,43 @@ namespace Sender
         {
             ClientSocket cs = new ClientSocket();
             Socket s = cs.ConnectToServer();
-            SerialBytes jb = new SerialBytes(s);
+            SerialBytes sb = new SerialBytes(s);
             DataClassTrans d1 = new DataClassTrans("test1");
             DataClassTrans d2 = new DataClassTrans("test2");
             DataClassTrans d3 = new DataClassTrans("test3");
             DataClassTrans d4 = new DataClassTrans("test4");
-            jb.Send(d1);
+            sb.Send(d1);
             Thread.Sleep(50);
-            jb.Send(d2);
+            sb.Send(d2);
             Thread.Sleep(50);
-            jb.Send(d3);
+            sb.Send(d3);
             Thread.Sleep(50);
-            jb.Send(d4);
+            sb.Send(d4);
+        }
+        public void ClientHandlerSerialTest2()
+        {
+            ClientSocket cs = new ClientSocket();
+            Socket s = cs.ConnectToServer();
+            SerialBytes sb = new SerialBytes(s);
+            try
+            {
+                sb.Recived += PrintObject;
+            }
+            catch (Exception)
+            {
+            }
+            DataClassTrans d1 = new DataClassTrans("test1");
+            DataClassTrans d2 = new DataClassTrans("test2");
+            DataClassTrans d3 = new DataClassTrans("test3");
+            DataClassTrans d4 = new DataClassTrans("test4");
+            sb.Send(d1);
+            Thread.Sleep(50);
+            sb.Send(d2);
+            Thread.Sleep(50);
+            sb.Send(d3);
+            Thread.Sleep(50);
+            sb.Send(d4);
+            
         }
         public void JsonTest()
         {
